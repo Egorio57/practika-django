@@ -1,0 +1,65 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{ article.title }}
+{% endblock %}
+
+{% block content %}
+
+
+<h1 class="page-title">
+    {{ article.title }}
+</h1>
+
+<div class="detail-text">
+
+    <p>
+        {{ article.full_text|linebreaks }}
+    </p>
+    <p style="margin-bottom: 10px;">
+                    Дата публикации: {{ article.created_at }}
+    </p>
+
+</div>
+
+<div class="related-news">
+
+    <h2 class="related-title">
+        Другие новости
+    </h2>
+
+    <div class="news-grid">
+
+        {% for item in related_news %}
+
+            <div class="news-card">
+
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" class="news-image">
+                {% endif %}
+
+                <div class="news-content">
+
+                    <h3 class="news-title">
+                        {{ item.title }}
+                    </h3>
+
+                    <p class="news-preview">
+                        {{ item.preview_text|truncatewords:20 }}
+                    </p>
+
+                    <a href="{% url 'news_detail' item.slug %}" class="btn">
+                        Читать
+                    </a>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

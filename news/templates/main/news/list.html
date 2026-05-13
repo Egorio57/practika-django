@@ -1,0 +1,49 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Новости школы
+{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">
+    Новости школы
+</h1>
+
+<div class="news-grid">
+
+    {% for item in news %}
+
+        <div class="news-card">
+
+            {% if item.image %}
+                <img src="{{ item.image.url }}" class="news-image">
+            {% endif %}
+
+            <div class="news-content">
+
+                <p style="margin-bottom: 10px;">
+                    Дата публикации: {{ item.created_at }}
+                </p>
+
+                <h2 class="news-title">
+                    {{ item.title }}
+                </h2>
+
+                <p class="news-preview">
+                    {{ item.preview_text|truncatewords:30 }}
+                </p>
+
+                <a href="{% url 'news:news_detail' item.id item.slug %}" class="btn">
+                    Читать подробнее
+                </a>
+
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
