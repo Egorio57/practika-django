@@ -9,7 +9,7 @@ class News(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ('title',)
+        ordering = ('-created_at',)
         verbose_name = "Новость"
         verbose_name_plural = "Новости"
 

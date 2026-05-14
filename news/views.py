@@ -17,7 +17,7 @@ def news_detail(request, id, slug):
         slug=slug
     )
 
-    related_news = News.objects.exclude(id=article.id)[:4]
+    related_news = News.objects.exclude(id=article.id)[:3]
 
     return render(request, 'main/news/detail.html', {
         'article': article,

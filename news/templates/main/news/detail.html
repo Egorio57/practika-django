@@ -1,44 +1,102 @@
 {% extends 'main/base.html' %}
 
 {% block title %}
-{{ article.title }}
+    {{ article.title }}
 {% endblock %}
 
 {% block content %}
 
+<div class="news-detail-page">
 
-<h1 class="page-title">
-    {{ article.title }}
-</h1>
+    <div class="detail-top">
 
-<div class="detail-text">
+        <a href="{% url 'news:news_list' %}" class="back-btn">
+            ← Все новости
+        </a>
 
-    <p>
-        {{ article.full_text|linebreaks }}
-    </p>
-    <p style="margin-bottom: 10px;">
-                    Дата публикации: {{ article.created_at }}
-    </p>
+    </div>
+
+    <article class="news-detail-card">
+
+        {% if article.image %}
+            <div class="detail-image-wrapper">
+                <img
+                    src="{{ article.image.url }}"
+                    alt="{{ article.title }}"
+                    class="detail-image"
+                >
+
+                <div class="image-overlay"></div>
+            </div>
+        {% endif %}
+
+        <div class="detail-content">
+
+            <div class="detail-meta">
+
+                <span class="detail-badge">
+                    Новости школы
+                </span>
+
+                <span class="publish-date">
+                    📅 {{ article.created_at|date:"d.m.Y H:i" }}
+                </span>
+
+            </div>
+
+            <h1 class="detail-title">
+                {{ article.title }}
+            </h1>
+
+            <div class="detail-divider"></div>
+
+            <div class="detail-text">
+                {{ article.full_text|linebreaks }}
+            </div>
+
+        </div>
+
+    </article>
 
 </div>
 
-<div class="related-news">
+<section class="related-news">
 
-    <h2 class="related-title">
-        Другие новости
-    </h2>
+    <div class="section-header">
+
+        <h2 class="related-title">
+            Другие новости
+        </h2>
+
+        <a href="{% url 'news:news_list' %}" class="all-news-link">
+            Смотреть все →
+        </a>
+
+    </div>
 
     <div class="news-grid">
 
         {% for item in related_news %}
 
-            <div class="news-card">
+            <article class="news-card">
 
-                {% if item.image %}
-                    <img src="{{ item.image.url }}" class="news-image">
-                {% endif %}
+                <div class="news-image-wrapper">
+
+                    {% if item.image %}
+                        <img
+                            src="{{ item.image.url }}"
+                            class="news-image"
+                            alt="{{ item.title }}"
+                        >
+                    {% endif %}
+
+                </div>
 
                 <div class="news-content">
+
+                    <div class="card-meta">
+                        {{ item.created_at|date:"d.m.Y" }}
+                    </div>
 
                     <h3 class="news-title">
                         {{ item.title }}
@@ -48,18 +106,21 @@
                         {{ item.preview_text|truncatewords:20 }}
                     </p>
 
-                    <a href="{% url 'news_detail' item.slug %}" class="btn">
-                        Читать
+                    <a
+                        href="{% url 'news:news_detail' item.id item.slug %}"
+                        class="btn"
+                    >
+                        Читать →
                     </a>
 
                 </div>
 
-            </div>
+            </article>
 
         {% endfor %}
 
     </div>
 
-</div>
+</section>
 
 {% endblock %}
