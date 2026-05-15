@@ -1,0 +1,198 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Главная страница
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <a href="{% url 'services:services_list' %}" class="hero-btn">
+                Наши услуги
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ПОСЛЕДНИЕ НОВОСТИ -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <h2 class="section-title">
+                Последние новости
+            </h2>
+
+            <a href="{% url 'news:news_list' %}" class="section-link">
+                Все новости →
+            </a>
+
+        </div>
+
+        <div class="cards-grid">
+
+            {% for item in latest_news %}
+
+                <article class="card">
+
+                    {% if item.image %}
+                        <img
+                            src="{{ item.image.url }}"
+                            alt="{{ item.title }}"
+                            class="card-image"
+                        >
+                    {% endif %}
+
+                    <div class="card-body">
+
+                        <p class="card-date">
+                            {{ item.created_at|date:"d.m.Y" }}
+                        </p>
+
+                        <h3 class="card-title">
+                            {{ item.title }}
+                        </h3>
+
+                        <p class="card-text">
+                            {{ item.preview_text|truncatewords:20 }}
+                        </p>
+
+                        <a
+                            href="{% url 'news:news_detail' item.id item.slug %}"
+                            class="btn"
+                        >
+                            Читать подробнее
+                        </a>
+
+                    </div>
+
+                </article>
+
+            {% empty %}
+
+                <p>
+                    Новости пока отсутствуют.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- УСЛУГИ -->
+
+<section class="section section-gray">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <h2 class="section-title">
+                Основные услуги
+            </h2>
+
+            <a href="{% url 'services:services_list' %}" class="section-link">
+                Все услуги →
+            </a>
+
+        </div>
+
+        <div class="cards-grid">
+
+            {% for service in main_services %}
+
+                <article class="card">
+
+                    {% if service.image %}
+                        <img
+                            src="{{ service.image.url }}"
+                            alt="{{ service.title }}"
+                            class="card-image"
+                        >
+                    {% endif %}
+
+                    <div class="card-body">
+
+                        <h3 class="card-title">
+                            {{ service.title }}
+                        </h3>
+
+                        <p class="card-text">
+                            {{ service.description|truncatewords:18 }}
+                        </p>
+
+                        <a
+                            href="{% url 'services:service_detail' service.slug %}"
+                            class="btn"
+                        >
+                            Подробнее
+                        </a>
+
+                    </div>
+
+                </article>
+
+            {% empty %}
+
+                <p>
+                    Услуги пока отсутствуют.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- О КОМПАНИИ -->
+
+<section class="about-company">
+
+    <div class="container about-wrapper">
+
+        <div class="about-image">
+
+            {% if company.image %}
+                <img
+                    src="{{ company.image.url }}"
+                    alt="О компании"
+                >
+            {% endif %}
+
+        </div>
+
+        <div class="about-content">
+
+            <h2 class="section-title">
+                О компании
+            </h2>
+
+            <p>
+                {{ company.description_about }}
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

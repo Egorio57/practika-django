@@ -1,0 +1,142 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Услуги{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">Услуги</h1>
+
+<!-- ФИЛЬТР -->
+<div class="filter-bar">
+
+    <a href="{% url 'services:services_list' %}"
+       class="{% if not selected_category %}active{% endif %}">
+        Все
+    </a>
+
+    {% for cat in categories %}
+        <a href="?category={{ cat.slug }}"
+           class="{% if selected_category and selected_category.id == cat.id %}active{% endif %}">
+            {{ cat.title }}
+        </a>
+    {% endfor %}
+
+</div>
+
+<!-- ИЕРАРХИЯ -->
+<div class="services-grid">
+
+    {% for service in services %}
+
+        <div class="service-card">
+
+            {% if service.image %}
+                <img src="{{ service.image.url }}" class="service-img">
+            {% endif %}
+
+            <div class="service-body">
+
+                <small class="category">
+                    {{ service.category.title }}
+                </small>
+
+                <h2>{{ service.title }}</h2>
+
+                <p>
+                    {{ service.description|truncatewords:25 }}
+                </p>
+
+                <div class="meta">
+                    <span>Цена: {{ service.price }} ₽</span>
+                    <span>Срок: {{ service.duration }}</span>
+                </div>
+
+                <a href="{% url 'services:service_detail' service.slug %}" class="btn">
+                    Подробнее
+                </a>
+
+            </div>
+
+        </div>
+
+    {% empty %}
+        <p>Услуги не найдены</p>
+    {% endfor %}
+
+</div>
+
+<style>
+
+.page-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0d47a1;
+}
+
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.filter-bar a {
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: #eee;
+    text-decoration: none;
+    color: #333;
+}
+
+.filter-bar a.active {
+    background: #0d47a1;
+    color: white;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.service-card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.service-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.service-body {
+    padding: 15px;
+}
+
+.category {
+    color: #777;
+}
+
+.meta {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 14px;
+    background: #0d47a1;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+</style>
+
+{% endblock %}

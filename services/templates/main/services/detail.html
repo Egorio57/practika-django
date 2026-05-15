@@ -1,0 +1,110 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ service.title }}{% endblock %}
+
+{% block content %}
+
+<div class="service-detail">
+
+    <a href="{% url 'services:services_list' %}" class="back-btn">
+        ← Все услуги
+    </a>
+
+    {% if service.image %}
+        <img src="{{ service.image.url }}" class="detail-img">
+    {% endif %}
+
+    <h1>{{ service.title }}</h1>
+
+    <p class="category">
+        Категория: {{ service.category.title }}
+    </p>
+
+    <div class="meta">
+        <p><b>Цена:</b> {{ service.price }} ₽</p>
+        <p><b>Срок выполнения:</b> {{ service.duration }}</p>
+    </div>
+
+    <div class="description">
+        {{ service.description }}
+    </div>
+
+</div>
+
+<section class="related-services">
+
+    <div class="section-header">
+
+        <h2 class="related-title">
+            Другие услуги
+        </h2>
+
+        <a href="{% url 'services:services_list' %}" class="all-news-link">
+            Смотреть все →
+        </a>
+
+    </div>
+
+    <div class="news-grid">
+
+        {% for item in related_services %}
+
+            <article class="news-card">
+
+                <div class="news-image-wrapper">
+
+                    {% if item.image %}
+                        <img src="{{ item.image.url }}" class="news-image" alt="{{ item.title }}">
+                    {% endif %}
+
+                </div>
+
+                <div class="news-content">
+
+                    <h3 class="news-title">
+                        {{ item.title }}
+                    </h3>
+
+                    <p class="news-preview">
+                        {{ item.description|truncatewords:20 }}
+                    </p>
+
+                    <a href="{% url 'services:service_detail' item.slug %}" class="btn">
+                        Подробнее →
+                    </a>
+
+                </div>
+
+            </article>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+<style>
+
+.detail-img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.category {
+    color: #666;
+}
+
+.meta {
+    display: flex;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+.description {
+    line-height: 1.6;
+}
+
+</style>
+
+{% endblock %}
