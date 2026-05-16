@@ -19,3 +19,12 @@ def home(request):
     }
 
     return render(request, 'main/home/home.html', context)
+
+def about(request):
+    company = CompanyInfo.objects.first()
+
+    context = {
+        'company': company
+    }
+
+    return render(request, 'main/home/about.html', context)

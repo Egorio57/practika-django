@@ -8,15 +8,88 @@
 
 <!-- HERO -->
 
-<section class="hero">
+<section class="hero-section">
 
-    <div class="container">
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-container">
 
         <div class="hero-content">
 
-            <a href="{% url 'services:services_list' %}" class="hero-btn">
-                Наши услуги
-            </a>
+            <span class="hero-badge">
+                Современное образование
+            </span>
+
+            <h1 class="hero-title">
+                МБОУ СОШ №44
+            </h1>
+
+            <p class="hero-description">
+                Школа, где знания, развитие и комфортная образовательная среда
+                помогают раскрыть потенциал каждого ученика.
+            </p>
+
+            <div class="hero-actions">
+
+                <a href="{% url 'services:services_list' %}" class="btn hero-btn">
+                    Наши услуги
+                </a>
+
+                <a href="{% url 'news:news_list' %}" class="btn-outline">
+                    Новости школы
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ПРЕИМУЩЕСТВА -->
+
+<section class="advantages-section">
+
+    <div class="container">
+
+        <div class="advantages-grid">
+
+            <div class="advantage-card">
+                <div class="advantage-icon">🎓</div>
+
+                <h3>
+                    Качественное образование
+                </h3>
+
+                <p>
+                    Современные образовательные программы и опытные преподаватели.
+                </p>
+            </div>
+
+            <div class="advantage-card">
+                <div class="advantage-icon">💡</div>
+
+                <h3>
+                    Развитие талантов
+                </h3>
+
+                <p>
+                    Поддержка творчества, спорта и научной деятельности учеников.
+                </p>
+            </div>
+
+            <div class="advantage-card">
+                <div class="advantage-icon">🏫</div>
+
+                <h3>
+                    Комфортная среда
+                </h3>
+
+                <p>
+                    Безопасная и современная инфраструктура для обучения.
+                </p>
+            </div>
 
         </div>
 
@@ -32,9 +105,17 @@
 
         <div class="section-header">
 
-            <h2 class="section-title">
-                Последние новости
-            </h2>
+            <div>
+
+                <p class="section-subtitle">
+                    Актуальная информация
+                </p>
+
+                <h2 class="section-title">
+                    Последние новости
+                </h2>
+
+            </div>
 
             <a href="{% url 'news:news_list' %}" class="section-link">
                 Все новости →
@@ -49,25 +130,29 @@
                 <article class="card">
 
                     {% if item.image %}
-                        <img
-                            src="{{ item.image.url }}"
-                            alt="{{ item.title }}"
-                            class="card-image"
-                        >
+                        <div class="card-image-wrapper">
+
+                            <img
+                                src="{{ item.image.url }}"
+                                alt="{{ item.title }}"
+                                class="card-image"
+                            >
+
+                        </div>
                     {% endif %}
 
                     <div class="card-body">
 
-                        <p class="card-date">
+                        <span class="card-date">
                             {{ item.created_at|date:"d.m.Y" }}
-                        </p>
+                        </span>
 
                         <h3 class="card-title">
                             {{ item.title }}
                         </h3>
 
                         <p class="card-text">
-                            {{ item.preview_text|truncatewords:20 }}
+                            {{ item.preview_text|truncatewords:18 }}
                         </p>
 
                         <a
@@ -83,9 +168,17 @@
 
             {% empty %}
 
-                <p>
-                    Новости пока отсутствуют.
-                </p>
+                <div class="empty-block">
+
+                    <h3>
+                        Пока нет новостей
+                    </h3>
+
+                    <p>
+                        Новости школы скоро появятся.
+                    </p>
+
+                </div>
 
             {% endfor %}
 
@@ -103,9 +196,17 @@
 
         <div class="section-header">
 
-            <h2 class="section-title">
-                Основные услуги
-            </h2>
+            <div>
+
+                <p class="section-subtitle">
+                    Что мы предлагаем
+                </p>
+
+                <h2 class="section-title">
+                    Основные услуги
+                </h2>
+
+            </div>
 
             <a href="{% url 'services:services_list' %}" class="section-link">
                 Все услуги →
@@ -120,11 +221,15 @@
                 <article class="card">
 
                     {% if service.image %}
-                        <img
-                            src="{{ service.image.url }}"
-                            alt="{{ service.title }}"
-                            class="card-image"
-                        >
+                        <div class="card-image-wrapper">
+
+                            <img
+                                src="{{ service.image.url }}"
+                                alt="{{ service.title }}"
+                                class="card-image"
+                            >
+
+                        </div>
                     {% endif %}
 
                     <div class="card-body">
@@ -134,7 +239,7 @@
                         </h3>
 
                         <p class="card-text">
-                            {{ service.description|truncatewords:18 }}
+                            {{ service.description|truncatewords:20 }}
                         </p>
 
                         <a
@@ -150,9 +255,17 @@
 
             {% empty %}
 
-                <p>
-                    Услуги пока отсутствуют.
-                </p>
+                <div class="empty-block">
+
+                    <h3>
+                        Услуги отсутствуют
+                    </h3>
+
+                    <p>
+                        Информация скоро будет добавлена.
+                    </p>
+
+                </div>
 
             {% endfor %}
 
@@ -171,23 +284,59 @@
         <div class="about-image">
 
             {% if company.image %}
+
                 <img
                     src="{{ company.image.url }}"
                     alt="О компании"
                 >
+
             {% endif %}
 
         </div>
 
         <div class="about-content">
 
+            <p class="section-subtitle">
+                О школе
+            </p>
+
             <h2 class="section-title">
-                О компании
+                О нашей школе
+            </h2>
+
+            <p class="about-text">
+                {{ company.description_about }}
+            </p>
+
+            <a href="{% url 'home:about' %}" class="btn">
+                Подробнее
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CTA -->
+
+<section class="cta-section">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+            <h2>
+                Остались вопросы?
             </h2>
 
             <p>
-                {{ company.description_about }}
+                Свяжитесь с администрацией школы для получения подробной информации.
             </p>
+
+            <a href="#" class="btn">
+                Связаться с нами
+            </a>
 
         </div>
 

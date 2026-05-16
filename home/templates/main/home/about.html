@@ -1,0 +1,120 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    О школе
+{% endblock %}
+
+{% block content %}
+
+<section class="about-page">
+
+    <div class="container">
+
+        <!-- HERO -->
+
+        <div class="about-page-header">
+
+            <span class="section-subtitle">
+                Информация о школе
+            </span>
+
+            <h1 class="section-title">
+                {{ company.title }}
+            </h1>
+
+            <p class="about-page-description">
+                Современная образовательная среда, развитие талантов
+                и качественное обучение для каждого ученика.
+            </p>
+
+        </div>
+
+        <!-- MAIN -->
+
+        <div class="about-page-wrapper">
+
+            <!-- LEFT -->
+
+            <div class="about-page-content">
+
+                <div class="about-info-card">
+
+                    <div class="about-card-badge">
+                        О школе
+                    </div>
+
+                    <h2>
+                        Образование будущего начинается здесь
+                    </h2>
+
+                    <p>
+                        {{ company.description_about }}
+                    </p>
+
+                </div>
+
+                <!-- CONTACTS -->
+
+                <div class="contacts-grid">
+
+                    <div class="contact-card">
+
+                        <span class="contact-label">
+                            Телефон
+                        </span>
+
+                        <a href="tel:{{ company.phone }}">
+                            {{ company.phone }}
+                        </a>
+
+                    </div>
+
+                    <div class="contact-card">
+
+                        <span class="contact-label">
+                            Email
+                        </span>
+
+                        <a href="mailto:{{ company.email }}">
+                            {{ company.email }}
+                        </a>
+
+                    </div>
+
+                    <div class="contact-card">
+
+                        <span class="contact-label">
+                            Адрес
+                        </span>
+
+                        <p>
+                            {{ company.address }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="about-page-image">
+
+                {% if company.image %}
+
+                    <img
+                        src="{{ company.image.url }}"
+                        alt="{{ company.title }}"
+                    >
+
+                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
