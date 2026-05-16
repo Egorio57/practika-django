@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Ошибка сервера
+{% endblock %}
+
+{% block content %}
+
+<section class="error-page">
+
+    <div class="container">
+
+        <div class="error-box">
+
+            <span class="error-code">
+                500
+            </span>
+
+            <h1>
+                Ошибка сервера
+            </h1>
+
+            <p>
+                На сервере произошла ошибка.
+                Попробуйте позже.
+            </p>
+
+            <a href="/" class="btn">
+                На главную
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

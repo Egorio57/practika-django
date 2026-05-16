@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Страница не найдена
+{% endblock %}
+
+{% block content %}
+
+<section class="error-page">
+
+    <div class="container">
+
+        <div class="error-box">
+
+            <span class="error-code">
+                404
+            </span>
+
+            <h1>
+                Страница не найдена
+            </h1>
+
+            <p>
+                Возможно страница была удалена
+                или адрес введён неверно.
+            </p>
+
+            <a href="/" class="btn">
+                Вернуться на главную
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
